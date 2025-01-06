@@ -1,6 +1,5 @@
 package com.ll.jpa.global.initData;
 
-import com.ll.jpa.domain.post.comment.entity.PostComment;
 import com.ll.jpa.domain.post.comment.service.PostCommentService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
@@ -53,13 +52,7 @@ public class BaseInitData {
     @Transactional
     public void work2() {
         Post post1 = postService.findById(1).get();
-        post1.setContent("content1-" + Math.random() * 100);
-
-        PostComment postComment1 = post1.getComments().get(0);
-        postComment1.setContent("comment1-" + Math.random() * 100);
-
-        PostComment postComment2 = post1.getComments().get(1);
-        postComment2.setContent("comment1-" + Math.random() * 100);
+        postService.delete(post1);
     }
 
 

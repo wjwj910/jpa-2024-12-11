@@ -12,8 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
@@ -29,7 +27,6 @@ public class BaseInitData {
         return args -> {
             self.work1();
             self.work2();
-            self.work3();
         };
     }
 
@@ -40,8 +37,6 @@ public class BaseInitData {
         Post post1 = postService.write("title1", "content1");
         Post post2 = postService.write("title2", "content2");
         Post post3 = postService.write("title3", "content3");
-
-        post1.setTitle("title1-1");
 
         post1.addComment(
                 "comment1"
@@ -57,27 +52,15 @@ public class BaseInitData {
 
     @Transactional
     public void work2() {
-        Post post = postService.findById(1).get();
-        System.out.println("1번글 로드 완료");
-
-        List<PostComment> postComments = post.getComments();
-        System.out.println("1번글의 댓글들 로드 완료");
-
-        PostComment postComment1 = postComments.get(0);
-        System.out.println("1번글의 첫번째 댓글 로드 완료");
-
-        PostComment postComment2 = postComments.get(1);
-        System.out.println("1번글의 두번째 댓글 로드 완료");
-    }
-
-    @Transactional
-    public void work3() {
         Post post1 = postService.findById(1).get();
+        post1.setContent("content1-" + Math.random() * 100);
 
-        post1.getComments().size();
+        PostComment postComment1 = post1.getComments().get(0);
+        postComment1.setContent("comment1-" + Math.random() * 100);
 
-        post1.addComment("comment4");
-
-        post1.getComments().get(2);
+        PostComment postComment2 = post1.getComments().get(1);
+        postComment2.setContent("comment1-" + Math.random() * 100);
     }
+
+
 }

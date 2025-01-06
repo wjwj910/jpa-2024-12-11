@@ -1,41 +1,41 @@
 package com.ll.jpa.global.initData;
 
+import com.ll.jpa.domain.post.comment.entity.PostComment;
+import com.ll.jpa.domain.post.comment.service.PostCommentService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
 
     private final PostService postService;
+    private final PostCommentService postCommentService;
 
     @Bean
-    @Order(1)
     public ApplicationRunner baseInitData1ApplicationRunner() {
-        return args -> {
-            System.out.println("baseInitData1ApplicationRunner");
-            if(postService.count() > 0) return;
+        return new ApplicationRunner() {
+            @Transactional
+            @Override
+            public void run(ApplicationArguments args) throws Exception {
+                if(postService.count() > 0) return;
 
-            Post post1 = postService.write("title1", "content1");
-            System.out.println(post1.getId() + "번 글이 생성됨");
-            Post post2 = postService.write("title2", "content2");
-            System.out.println(post2.getId() + "번 글이 생성됨");
-            Post post3 = postService.write("title3", "content3");
-            System.out.println(post3.getId() + "번 글이 생성됨");
-        };
-    }
+                Post post1 = postService.write("title1", "content1");
+                Post post2 = postService.write("title2", "content2");
+                Post post3 = postService.write("title3", "content3");
 
-    @Bean
-    @Order(2)
-    public ApplicationRunner baseInitData2ApplicationRunner() {
-        return args -> {
-            Post post4 = postService.write("title4", "content4");
-            postService.delete(post4);
+                // 1번 글에 대한 댓글 1 생성
+                PostComment postComment1 = postCommentService.write(post1.getId(), "comment1");
+                PostComment postComment2 = postCommentService.write(post1.getId(), "comment2");
+                PostComment postComment3 = postCommentService.write(post2.getId(), "comment3");
+            }
         };
+
     }
 }

@@ -17,7 +17,7 @@ class PostServiceTest {
 	@Test
 	@DisplayName("글 2개 생성")
 	@Transactional
-	@Rollback
+	@Rollback(false)
 	void t1() {
 		postService.write("title1", "content1");
 		postService.write("title2", "content2");

@@ -41,5 +41,4 @@ public class Post {
     private String content;
 
     private boolean blind;
-
 }

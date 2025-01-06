@@ -36,6 +36,5 @@ public class PostService {
     public void modify(Post post, String title, String content) {
         post.setTitle(title);
         post.setContent(content);
-        postRepository.save(post); // UPDATE
     }
 }

@@ -2,6 +2,7 @@ package com.ll.jpa.global.initData;
 
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
+import com.ll.jpa.standard.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +35,10 @@ public class BaseInitData {
     @Order(2)
     public ApplicationRunner baseInitData2ApplicationRunner() {
         return args -> {
-            System.out.println("baseInitData2ApplicationRunner");
-            postService.findById(1L).get();
+            Ut.thread.sleep(1000);
+
+            Post post1 = postService.findById(1L).get();
+            postService.modify(post1, "title1-1", "content1-1");
 
         };
     }

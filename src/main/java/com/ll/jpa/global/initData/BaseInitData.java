@@ -1,5 +1,6 @@
 package com.ll.jpa.global.initData;
 
+import com.ll.jpa.domain.post.comment.entity.PostComment;
 import com.ll.jpa.domain.post.comment.service.PostCommentService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
@@ -10,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -51,9 +54,18 @@ public class BaseInitData {
 
     @Transactional
     public void work2() {
-        Post post1 = postService.findById(1).get();
-        postService.delete(post1);
-    }
+        Post post1 = postService.findById(1L).get();
 
+        Optional<PostComment> opPostComment1 = post1.getComments()
+                .stream()
+                .filter(postComment -> postComment.getId() == 1)
+                .findFirst();
+
+        if (opPostComment1.isEmpty()) return;
+
+        PostComment postComment1 = opPostComment1.get();
+
+        post1.removeComment(postComment1);
+    }
 
 }

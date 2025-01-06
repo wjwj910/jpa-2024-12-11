@@ -74,6 +74,10 @@ public class BaseInitData {
     public void work3() {
         Post post1 = postService.findById(1).get();
 
+        post1.getComments().size();
+
         post1.addComment("comment4");
+
+        post1.getComments().get(2);
     }
 }

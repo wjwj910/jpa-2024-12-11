@@ -3,7 +3,6 @@ package com.ll.jpa.global.initData;
 import com.ll.jpa.domain.post.comment.service.PostCommentService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
-import com.ll.jpa.standard.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -40,8 +39,6 @@ public class BaseInitData {
         Post post3 = postService.write("title3", "content3");
 
         post1.setTitle("title1-1");
-        post1.setTitle("title1-2");
-        post1.setTitle("title1-3");
 
         post1.addComment(
                 "comment1"
@@ -52,8 +49,6 @@ public class BaseInitData {
         post2.addComment(
                 "comment3"
         );
-
-        Ut.thread.sleep(1000);
 
     }
 

@@ -32,7 +32,7 @@ public class PostComment {
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime modifiedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
     @Column(columnDefinition = "TEXT")

@@ -19,6 +19,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
     // long => null X
@@ -27,6 +28,7 @@ public class Post {
     @Id // PRIMARY KEY
     @GeneratedValue(strategy = IDENTITY) // AUTO_INCREMENT
     @Setter(AccessLevel.PRIVATE)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @CreatedDate

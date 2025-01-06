@@ -5,10 +5,12 @@ import com.ll.jpa.domain.post.comment.service.PostCommentService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,9 @@ public class BaseInitData {
 
     private final PostService postService;
     private final PostCommentService postCommentService;
+    @Autowired
+    @Lazy
+    private BaseInitData self;
 
     @Bean
     @Order(1)
@@ -45,7 +50,7 @@ public class BaseInitData {
     @Bean
     @Order(2)
     public ApplicationRunner baseInitData2ApplicationRunner() {
-        return args -> work();
+        return args -> self.work();
     }
 
     @Transactional

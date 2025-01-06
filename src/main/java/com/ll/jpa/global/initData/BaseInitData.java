@@ -72,5 +72,8 @@ public class BaseInitData {
 
     @Transactional
     public void work3() {
+        Post post1 = postService.findById(1).get();
+
+        post1.addComment("comment4");
     }
 }

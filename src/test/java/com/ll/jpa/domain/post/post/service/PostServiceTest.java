@@ -188,4 +188,12 @@ class PostServiceTest {
 		assertEquals(3, postPage.getNumberOfElements()); // 현재 페이지에 노출된 글 수
 		assertEquals(pageNumber, postPage.getNumber()); // 현재 페이지 번호
 	}
+
+	@Test
+	@DisplayName("findByAuthorNickname")
+	void t14() {
+		List<Post> posts = postService.findByAuthorNickname("유저1");
+
+		assertEquals(2, posts.size());
+	}
 }

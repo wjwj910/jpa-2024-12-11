@@ -53,4 +53,70 @@ class PostServiceTest {
 		Post post = postService.findByTitle("title1").get(0);
 		assertEquals("title1", post.getTitle());
 	}
+
+	@Test
+	@DisplayName("findByTitleAndContent")
+		// SELECT * FROM post WHERE title = 'title1' AND content = 'content1';
+	void t5() {
+		Post post = postService.findByTitleAndContent("title1", "content1").get(0);
+		assertEquals(1, post.getId());
+	}
+
+	@Test
+	@DisplayName("findByTitleLike")
+		// SELECT * FROM post WHERE title LIKE '%2';
+	void t6() {
+		List<Post> posts = postService.findByTitleLike("%2");
+		Post post = posts.get(0);
+		assertEquals("title2", post.getTitle());
+	}
+
+
+	@Test
+	@DisplayName("findByTitleLikeOrderByIdDesc")
+		// SELECT * FROM post WHERE title LIKE 'title%' ORDER BY id DESC;
+	void t7() {
+		List<Post> posts = postService.findByTitleLikeOrderByIdDesc("title%");
+		assertEquals(3, posts.size());
+
+		Post post = posts.get(0);
+		assertEquals(3, post.getId());
+		assertEquals("title3", post.getTitle());
+	}
+
+	@Test
+	@DisplayName("findByOrderByIdDesc")
+		// SELECT * FROM post ORDER BY id DESC;
+	void t8() {
+		List<Post> posts = postService.findByOrderByIdDesc();
+		assertEquals(3, posts.size());
+
+		Post post = posts.get(0);
+		assertEquals(3, post.getId());
+		assertEquals("title3", post.getTitle());
+	}
+
+	@Test
+	@DisplayName("findTop2ByTitleLikeOrderByIdDesc")
+		// SELECT * FROM post WHERE title LIKE 'title%' ORDER BY id DESC LIMIT 2;
+	void t9() {
+		List<Post> posts = postService.findTop2ByTitleLikeOrderByIdDesc("title%");
+		assertEquals(2, posts.size());
+
+		Post post = posts.get(0);
+		assertEquals(3, post.getId());
+		assertEquals("title3", post.getTitle());
+	}
+
+	@Test
+	@DisplayName("findTop2ByOrderByIdDesc")
+		// SELECT * FROM post WHERE ORDER BY id DESC LIMIT 2;
+	void t10() {
+		List<Post> posts = postService.findTop2ByOrderByIdDesc("title%");
+		assertEquals(2, posts.size());
+
+		Post post = posts.get(0);
+		assertEquals(3, post.getId());
+		assertEquals("title3", post.getTitle());
+	}
 }

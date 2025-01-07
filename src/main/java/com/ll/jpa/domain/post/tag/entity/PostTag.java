@@ -1,7 +1,7 @@
 package com.ll.jpa.domain.post.tag.entity;
 
 import com.ll.jpa.domain.post.post.entity.Post;
-import com.ll.jpa.global.jpa.entity.BaseTime;
+import com.ll.jpa.global.jpa.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,7 +14,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostTag extends BaseTime {
+public class PostTag extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 

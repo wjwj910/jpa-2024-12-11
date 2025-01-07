@@ -2,15 +2,12 @@ package com.ll.jpa.domain.post.comment.entity;
 
 import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.post.post.entity.Post;
-import jakarta.persistence.*;
+import com.ll.jpa.global.jpa.entity.BaseTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
@@ -18,23 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@EntityListeners(AuditingEntityListener.class)
-public class PostComment {
-    @Id // PRIMARY KEY
-    @GeneratedValue(strategy = IDENTITY)
-    @EqualsAndHashCode.Include
-    @Setter(AccessLevel.PRIVATE)
-    private Long id;
-
-    @CreatedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime modifiedAt;
-
+public class PostComment extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 

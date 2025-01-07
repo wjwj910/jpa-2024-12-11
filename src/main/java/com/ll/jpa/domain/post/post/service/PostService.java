@@ -5,6 +5,7 @@ import com.ll.jpa.domain.post.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +41,13 @@ public class PostService {
 
     public void delete(Post post) {
         postRepository.delete(post);
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    public List<Post> findByTitle(String title) {
+        return postRepository.findByTitle(title);
     }
 }

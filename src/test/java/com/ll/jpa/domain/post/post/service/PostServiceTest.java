@@ -1,5 +1,7 @@
 package com.ll.jpa.domain.post.post.service;
 
+import com.ll.jpa.domain.member.member.entity.Member;
+import com.ll.jpa.domain.member.member.service.MemberService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,13 +24,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PostServiceTest {
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private MemberService memberService;
 
 	@Test
 	@DisplayName("글 2개 생성")
 	@Transactional
 	void t1() {
-		postService.write("title1", "content1");
-		postService.write("title2", "content2");
+		Member user1 = memberService.findByUsername("user1").get();
+		postService.write(user1, "title1", "content1");
+		postService.write(user1, "title2", "content2");
 	}
 
 	@Test
